@@ -1037,7 +1037,6 @@ class Player {
         this.socket = new Socket(
             this,
             `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws_user`
-            }:${window.location.port}/ws_user`
         );
         this.socket.connect(this);
         this.socket.addMessageListener((msg) => this.handleMessage(msg));
