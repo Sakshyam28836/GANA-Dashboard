@@ -86,7 +86,7 @@ class Socket {
     startHeartbeat() {
         this.heartbeatInterval = setInterval(() => {
             this.send(this.heartbeatMessage);
-        }, 60000); // Send heartbeat every 60 seconds
+        }, 15000); // Send heartbeat every 60 seconds
     }
 
     // Stop sending heartbeat messages
