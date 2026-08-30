@@ -289,12 +289,8 @@ const methods = {
                     callback: "main-page",
                 });
             }
-        } else {
-            if (data.callback) {
-                $(`#${data.callback} .loader`).fadeOut(150);
-            }
         }
-
+        
         player.playlists = data.data.playlist;
         player.inboxes = data.data.inbox;
         player.updatePlaylistSelector();
