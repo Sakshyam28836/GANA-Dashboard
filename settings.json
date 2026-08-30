@@ -1,9 +1,9 @@
 {
     "host": "0.0.0.0",
     "password": "",
-    "client_id": "",
-    "client_secret_id": "",
-    "secret_key": "",
+    "client_id": "1515038282185052342",
+    "client_secret_id": "O4asSzFi4N3h_uYmjcZHS_T1Ezk92SxE",
+    "secret_key": "x8f9d2n4q1_gana_dashboard_secret_994!",
     "redirect_url": "https://gana-jbtx.onrender.com/callback",
     "logging": {
         "file": {
