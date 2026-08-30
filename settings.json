@@ -4,7 +4,7 @@
     "client_id": "",
     "client_secret_id": "",
     "secret_key": "",
-    "redirect_url": "https://gana.onrender.com/callback",
+    "redirect_url": "https://gana-jbtx.onrender.com/callback",
     "logging": {
         "file": {
             "path": "./logs",
