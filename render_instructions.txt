@@ -1,0 +1,68 @@
+==================================================
+VOCARD DASHBOARD - RENDER.COM HOSTING INSTRUCTIONS
+==================================================
+
+Hosting this dashboard on Render.com is fully supported! Render is a great choice because it natively supports persistent WebSockets (unlike Vercel). 
+
+Here is the step-by-step guide on what you need and how to host it.
+
+1. PREREQUISITES
+--------------------------------------------------
+- A GitHub account.
+- A Render.com account (linked to your GitHub).
+- Because Render is a remote host, your Discord bot MUST be configured to accept external IPC connections (see Section 4).
+
+2. HOW TO HOST ON RENDER
+--------------------------------------------------
+Step 1: Push to GitHub
+  1. Extract this zip file on your computer.
+  2. Create a new public or private repository on GitHub (e.g., "vocard-dashboard").
+  3. Upload all the extracted files into that GitHub repository.
+
+Step 2: Create a Web Service on Render
+  1. Go to your Render Dashboard (https://dashboard.render.com).
+  2. Click "New" -> "Web Service".
+  3. Select "Build and deploy from a Git repository".
+  4. Connect your GitHub account and select the repository you just created.
+
+Step 3: Configure the Web Service
+  - Name: Name it whatever you like.
+  - Environment: "Python 3"
+  - Region: Choose the region closest to where your Discord Bot is hosted (reduces lag).
+  - Branch: `main` (or whatever your default branch is).
+  - Build Command: `pip install -r requirements.txt`
+  - Start Command: `python main.py`
+
+3. PORT CONFIGURATION (CRITICAL FOR RENDER)
+--------------------------------------------------
+Render automatically assigns a dynamic port using the `PORT` environment variable. By default, the `settings.json` file forces port 8000. 
+
+To fix this so Render can deploy successfully:
+1. Open `settings.json` in your repository.
+2. DELETE the `"port": 8000,` line entirely. 
+(By deleting it, the dashboard will automatically read Render's dynamic port).
+
+Your settings.json should look like this:
+{
+  "host": "0.0.0.0",
+  "ipc_port": 25587,
+  "ipc_localhost": false,
+  "default_locale": "en",
+  ...
+}
+
+4. CONNECTING TO YOUR BOT (CRITICAL)
+--------------------------------------------------
+Because your dashboard is now hosted on Render, and your bot is hosted on Pterodactyl, they are on completely different machines. 
+You MUST configure the dashboard to reach out across the internet to talk to your bot!
+
+In `settings.json` on Render:
+1. Change `"ipc_localhost"` to `false`.
+2. Change `"ipc_port"` to the public port of your Bot VPS.
+
+On your Pterodactyl Bot:
+Your bot MUST allow remote IPC connections. If your bot is locked to `localhost` or `127.0.0.1`, Render will NOT be able to connect, and the dashboard will show as offline.
+
+5. DEPLOYMENT
+--------------------------------------------------
+Once you have made the changes above, click "Create Web Service" at the bottom of the Render page. Render will build the Python environment and launch your dashboard automatically!

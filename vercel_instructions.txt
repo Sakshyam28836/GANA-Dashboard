@@ -1,0 +1,60 @@
+==================================================
+VOCARD DASHBOARD - VERCEL HOSTING INSTRUCTIONS
+==================================================
+
+?? CRITICAL WARNING REGARDING VERCEL ??
+Vercel is designed for static websites and short-lived "Serverless" functions. 
+The Vocard Dashboard heavily relies on a continuous, real-time WebSocket 
+connection to communicate with your Discord bot for live queue updates and controls. 
+Vercel DOES NOT SUPPORT persistent WebSockets. If you host this on Vercel, the 
+website will load, but the live player connection to your bot will likely timeout, 
+disconnect, or throw errors. 
+
+For real-time dashboards like this, platforms like Pterodactyl, Railway.app, or 
+Render.com are highly recommended over Vercel. 
+
+However, if you still want to deploy to Vercel, the configuration has been prepared for you.
+
+1. REQUIRED FILES (ALREADY INCLUDED)
+--------------------------------------------------
+- `vercel.json`: Tells Vercel how to build the Python (Quart) application.
+- `requirements.txt`: Tells Vercel which Python packages to install.
+- `main.py`: The entry point for the dashboard.
+
+2. PREREQUISITES
+--------------------------------------------------
+- A GitHub account.
+- A Vercel account (linked to your GitHub).
+
+3. HOW TO HOST ON VERCEL
+--------------------------------------------------
+Step 1: Push to GitHub
+  1. Extract this zip file.
+  2. Create a new repository on GitHub (e.g., "vocard-dashboard").
+  3. Upload all these extracted files directly into that GitHub repository.
+
+Step 2: Import to Vercel
+  1. Go to your Vercel Dashboard (https://vercel.com/dashboard).
+  2. Click "Add New..." -> "Project".
+  3. Locate the GitHub repository you just created and click "Import".
+
+Step 3: Configure Deployment
+  1. Project Name: Name it whatever you like.
+  2. Framework Preset: Leave as "Other".
+  3. Root Directory: Leave as "./".
+  4. Build and Output Settings: Leave as default (Vercel will use the `vercel.json` file automatically).
+
+Step 4: Environment Variables (Optional)
+  - If your bot IPC requires specific environment variables or different IPs, you can set them here. Note that Vercel uses ephemeral IPs, so `ipc_localhost` in `settings.json` must be set to `false`, and you must expose your VPS bot's IPC port publicly (which is very dangerous without a password).
+
+Step 5: Deploy
+  1. Click the "Deploy" button.
+  2. Vercel will install the Python dependencies and route the application.
+
+4. POST-DEPLOYMENT CHANGES
+--------------------------------------------------
+Because Vercel is remote, your dashboard is no longer on the same machine as your bot. 
+You MUST open `settings.json` and:
+1. Change `"ipc_localhost"` to `false`.
+2. Change `"ipc_port"` to the public port of your Bot VPS.
+3. Your bot must allow remote IPC connections (which can be a major security risk).

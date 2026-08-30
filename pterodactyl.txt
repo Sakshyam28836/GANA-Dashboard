@@ -1,0 +1,44 @@
+==================================================
+VOCARD DASHBOARD - PTERODACTYL SETUP INSTRUCTIONS
+==================================================
+
+1. SERVER TYPE & EGG
+--------------------------------------------------
+- Nest: Python (or Generic)
+- Egg: Python
+- Docker Image: ghcr.io/pterodactyl/yolks:python_3.11 (Python 3.10 or 3.11 recommended)
+
+2. UPLOAD & EXTRACT
+--------------------------------------------------
+- Upload the `vocard_dash.zip` to the root directory (`/home/container/`) of your new Pterodactyl server.
+- Extract the zip file directly into the root folder.
+- Ensure `main.py`, `requirements.txt`, `settings.json`, etc., are located in `/home/container/` (not inside a subfolder).
+
+3. STARTUP CONFIGURATION
+--------------------------------------------------
+- Startup Command:
+  `pip install -r requirements.txt && python main.py`
+  
+  *Note: If your egg automatically installs requirements, you can just use `python main.py`*
+
+4. PORT CONFIGURATION (IMPORTANT)
+--------------------------------------------------
+- Go to the "Network" tab on your Pterodactyl panel and allocate a port for the dashboard (e.g., 8000).
+- Open `settings.json` in the file manager.
+- Change the `"port"` value to match your allocated server port.
+- Change the `"host"` value to `"0.0.0.0"`.
+
+Example settings.json:
+{
+  "host": "0.0.0.0",
+  "port": 8000,
+  "ipc_port": 25587,
+  "ipc_localhost": true,
+  "default_locale": "en",
+  ...
+}
+
+5. START THE SERVER
+--------------------------------------------------
+- Go to the Console tab and click "Start".
+- The dashboard will download its required packages, compile the JS/CSS files, connect to the Bot IPC, and start the web server!
