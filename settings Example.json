@@ -1,6 +1,5 @@
 {
     "host": "localhost",
-    "port": "8000",
     "password": "",
     "client_id": "",
     "client_secret_id": "",
